@@ -1,0 +1,61 @@
+@import 'susy/susy';
+
+/* Changing Susy default global settings */
+$event-showcase: (
+  /* Tells Susy to use 6 columns */
+  columns: 6,
+  /* Tells Susy that the container has a max-width of 1120px */
+  container: 1000px,
+  /* Tells Susy to use border-box */
+  global-box-sizing: border-box,
+  //gutters: .125,
+  gutter-position: after
+);
+
+%clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+/* Makes border-box properties */
+@include border-box-sizing;
+
+.wrap {
+  @include with-layout($event-showcase) {
+    @include container;
+  }
+}
+
+.product_table {
+  display:flex;
+  flex-wrap:wrap;
+
+  .product {
+    /* Styles for mobile view go here */
+    margin-bottom: 2em;
+
+    /* Styles for desktop view go here */
+    @media (min-width: 575px) and (max-width: 939px) {
+      @include span(3 of 6 $event-showcase);
+
+      &:nth-child(even) {
+        @include last;
+      }
+    }
+
+    @media (min-width: 940px) {
+      @include span(2 of 6 $event-showcase);
+
+      &:nth-child(3n+3) {
+        @include last;
+      }
+    }
+
+    form {
+      height: 100%;
+    }
+  }
+}
